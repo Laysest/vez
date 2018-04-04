@@ -1,0 +1,41 @@
+.adminContainer{
+    display: flex;
+    position: fixed;
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    flex-direction: column;
+    overflow: scroll;
+}
+
+.adminBody{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 10;
+    background-color: white;
+}
+
+.adminMenu{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
+    justify-content: center;
+    flex-direction: row;
+}
+
+    .adminbutton{
+        background-color: pink;
+        margin-left: 1cm;
+        margin-right: 1cm;
+        margin-bottom: 0.2cm;
+        height: 1.5cm;
+
+        width: 3cm;
+        border-radius: 10px;
+    }
+    
+/*            position: absolute;*/
+    
+
+
