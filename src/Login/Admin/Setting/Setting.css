@@ -36,6 +36,7 @@
             margin-bottom: 0.5cm;
             border-radius: 10px; 
             width: 6cm;
+            text-align: left;
             background-color: greenyellow;
         }
 
@@ -106,7 +107,11 @@
                 height: 1.5cm;
                 border-radius: 9px;
             }
-
+            .button_submit_change:active
+            {
+                background-color: aqua;
+            }
+        
             .button_start_change{
                 margin-left: 1cm;
                 width: 2cm;

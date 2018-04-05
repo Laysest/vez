@@ -1,0 +1,135 @@
+.viewContainer{
+    display: flex;
+    position: fixed;
+    flex-grow: 1;
+    width: 100%;
+    height: 85%;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    overflow: scroll;
+}
+        .viewBox{
+            margin: 0.5cm;
+            display: flex;
+            width: 6.3cm;
+            height: 5cm;
+            border-radius: 10px;            
+            background-color: palegreen;
+            flex-direction: column;
+        }
+            .canngangviewBox{
+                flex-grow: 0;
+                display: flex;
+                flex-direction: row;
+            }
+
+            .candocviewBox{
+                flex-grow: 0;
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .viewId{
+                border-top-left-radius: 10px;
+                width: 2cm;
+                height: 2cm;
+                display: flex;
+                background-color: palegoldenrod;
+                border-style: solid;
+                border-width: 0.05cm;
+            }
+                .viewTopId{
+                    border-top-left-radius: 10px;
+                    width: 2cm;
+                    height: 0.7cm;
+                    text-align: center;
+                    border-bottom-width: 0.05cm;
+                    border-bottom-style: dashed;
+                }
+            
+                .viewBodyId{
+                    width: 2cm;
+                    height: 1.3cm;
+                    text-align: center;
+                }
+                    .viewTextBodyId{
+                        margin: 0.01;
+                        line-height: 0;
+                        line-break: 0;
+                        font-size: 190%;
+                    }
+
+            .viewDelay{
+                width: 2cm;
+                height: 2cm;
+                display: flex;
+                background-color: palegoldenrod;
+                border-style: solid;
+                border-width: 0.05cm;
+            }
+            .viewMove{
+                border-top-right-radius: 10px;
+                width: 2cm;
+                height: 2cm;
+                display: flex;
+                background-color: palegoldenrod;
+                border-style: solid;
+                border-width: 0.05cm;
+            }
+
+            
+            .viewCount{
+                border-bottom-left-radius: 10px;
+                width: 3.05cm;
+                height: 2.8cm;
+                display: flex;
+                background-color: palegoldenrod;
+                border-style: solid;
+                border-width: 0.05cm;
+            }
+
+                .viewTopCount{
+                    width: 3.05cm;
+                    height: 0.7cm;
+                    text-align: center;
+                    border-bottom-width: 0.05cm;
+                    border-bottom-style: dashed;
+                }
+                
+                
+@-webkit-keyframes blinker {
+    from {opacity: 1.0;}
+    to {opacity: 0.0;}
+  }
+                
+                .viewBodyCount{
+                    width: 3.05cm;
+                    height: 2.1cm;
+                    text-align: center;
+                    vertical-align: center;
+                    margin-top: 0.4cm;
+                    font-size: 250%;
+                    text-decoration: blink;
+                    -webkit-animation-name: blinker;
+                    -webkit-animation-duration: 0.6s;
+                    -webkit-animation-iteration-count:infinite;
+                    -webkit-animation-timing-function:ease-in-out;
+                    -webkit-animation-direction: alternate;
+                }
+
+            .viewDelayCount{
+                border-bottom-right-radius: 10px;
+                width: 3.05cm;
+                height: 2.8cm;
+                display: flex;
+                background-color: palegoldenrod;
+                border-style: solid;
+                border-width: 0.05cm;
+            }
+
+.zz{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
