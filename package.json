@@ -3,12 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
+    "cors": "^2.8.4",
     "react": "^16.3.0",
-    "react-dom": "^16.3.0",
+    "react-dom": "^16.3.1",
+    "react-modal": "^3.3.2",
     "react-scripts": "1.1.1"
   },
   "scripts": {
-    "start": "set port=4200 && react-scripts start && node ./myapp/app.js",
+    "start": "set PORT=4200 && react-scripts start && node ./myapp/app.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

@@ -4,16 +4,17 @@ import Setting from './Setting/Setting';
 import View from './View/View';
 
 function InterFace(props){
+    var th = props.th;
     if (props.goSetting)
-        return <Setting/>
+        return <Setting line={th.state.line} th={th}/>
     else if (props.goView)
-        return <View/> 
+        return <View line={th.state.line} th={th}/> 
 }
 
 class Admin extends Component{
     constructor(props){
         super(props);
-        this.state = {goSetting: false, goView: true}
+        this.state = {goSetting: false, goView: true, line: 1}
     }
 
 
@@ -21,7 +22,7 @@ class Admin extends Component{
         return(
             <div className="adminContainer"> 
                 <div className="adminBody"> 
-                    <InterFace goSetting={this.state.goSetting} goView={this.state.goView} />
+                    <InterFace goSetting={this.state.goSetting} goView={this.state.goView} th={this}/>
                 </div>
                 <div className="adminMenu">
                     <button className= "adminbutton" name="goSetting" onClick={()=>{this.setState({goSetting: true, goView: false})}}> Cài Đặt </button>

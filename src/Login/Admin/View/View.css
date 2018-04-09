@@ -3,21 +3,89 @@
     position: fixed;
     flex-grow: 1;
     width: 100%;
-    height: 85%;
+    height: 95%;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     flex-wrap: wrap;
-    overflow: scroll;
+    justify-content: center;
 }
+
+.modal_chooseLine{
+    display: flex;
+    flex-direction: row;
+    height: 6cm;
+    width: 12cm;
+    flex-wrap: wrap;
+}
+    .modal_oneLine{
+        width: 3cm;
+        height: 1cm;
+        line-height: 1cm;
+        margin: 0.3cm;
+        text-align: center;
+        border-radius: 5px;
+        background-color: navajowhite;
+        white-space: nowrap;          
+    }
+
+    .viewLine{
+        display: flex;
+        flex-grow: 0;
+        height: 1cm;
+        margin: 0;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+        .clickLine{
+            display: flex;
+            height: 1cm;
+            width: 80%;       
+            font-size: 150%;
+            font-weight: bold;
+        }
+        .viewButtonPauseAll{
+            background-color: orangered;
+            font-weight: bold;
+            border-radius: 10px;
+            margin-right: 0.5cm;
+        }
+
         .viewBox{
             margin: 0.5cm;
             display: flex;
             width: 6.3cm;
             height: 5cm;
-            border-radius: 10px;            
-            background-color: palegreen;
+            border-radius: 10px;        
+            border-width: 0cm;
             flex-direction: column;
+            align-items: right;
+            justify-content: flex-start;
         }
+        .viewBox:active{
+            background-color: yellowgreen;
+        }
+            .viewPause{ 
+                border-top-right-radius: 10px;
+                width: 2cm;
+                height: 0.7cm;
+                text-align: center;
+                border-bottom-width: 0.05cm;
+                border-bottom-style: dashed;
+                background-color: red;
+            }
+            
+            .hiddenPause{  
+                border-top-right-radius: 10px;
+                width: 2cm;
+                height: 0.7cm;
+                text-align: center;
+                border-bottom-width: 0.05cm;
+                border-bottom-style: dashed;
+                background-color: red;
+                display: none;
+            }
+
             .canngangviewBox{
                 flex-grow: 0;
                 display: flex;
@@ -90,7 +158,7 @@
             }
 
                 .viewTopCount{
-                    width: 3.05cm;
+                    width: 3cm;
                     height: 0.7cm;
                     text-align: center;
                     border-bottom-width: 0.05cm;
@@ -127,9 +195,97 @@
                 border-style: solid;
                 border-width: 0.05cm;
             }
-
 .zz{
     display: flex;
+    width: 100%;
+    height: 90%;
+    flex-grow: 0;
     flex-direction: row;
     flex-wrap: wrap;
+    overflow: scroll;
 }
+
+.view_box_change1{
+    height: 6cm;
+    width: 15cm;
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    background-color: bisque;
+    border-radius: 10px;
+}
+
+.hidden_box_change{
+    height: 4cm;
+    width: 10cm;
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    display: none;
+}
+
+    .left_box_change{
+        flex-grow: 0;
+    }
+        .line_change{
+            background-color: gainsboro;
+            margin-top: 0.3cm;
+            margin-bottom: 0.1cm;
+            margin-left: 1cm;
+            margin-right: 1cm;
+            height: 1.5cm;
+            width: 10cm;
+            display: flex;
+            flex-direction: row;
+            text-align: left;
+            align-items: center;
+        }
+            .text_line_change{
+                width: 2cm;
+                flex-grow: 2;
+                margin-left: 0.5cm;
+            }
+
+            .input_line_notchange{
+                flex-grow: 2;
+                height: 1cm;
+                width: 6cm;
+                margin-left: 0.5cm;
+                border-radius: 10px;
+                background-color: yellow;
+            }
+
+            .input_line_change{
+                flex-grow: 2;
+                height: 1cm;
+                width: 6cm;
+                margin-left: 0.5cm;
+                border-radius: 10px;
+            }
+
+    .right_box_change{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 0;
+    }
+        .button_submit_change{
+            width: 2cm;
+            height: 1.5cm;
+            border-radius: 9px;
+        }
+        .button_submit_change:active
+        {
+            background-color: aqua;
+        }
+    
+        .button_stop_change{
+            width: 2cm;
+            height: 1.5cm;
+            border-radius: 9px;
+            background-color: orangered;
+        }
+        .button_stop_change:active{
+            background-color: white;
+        }
