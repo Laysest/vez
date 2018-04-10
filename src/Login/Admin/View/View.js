@@ -2,7 +2,10 @@ import React, {Component} from 'react'
 import './View.css'
 import axios from 'axios'
 import Modal from 'react-modal'
+import io from 'socket.io-client';
+import URL from '../../Host';
 
+const socket = io(URL +':3009');
 
 function ListBox(props){
     const th = props.t;
@@ -16,7 +19,7 @@ function ListBox(props){
                         <p className="viewTextBodyId"> {a.id} </p>
                     </div>
                 </div>
-            </div>
+            </div>     
             <div className="viewDelay">
                 <div className="candocviewBox"> 
                     <div className="viewTopId"> Time delay</div>
@@ -74,7 +77,7 @@ export default class View extends Component{
 
     getData(){
         var th = this;
-        axios.get('http://localhost:3002/getDataView?line=' + th.state.line).then(function(response){
+        axios.get(URL +':3002/getDataView?line=' + th.state.line).then(function(response){
             th.setState({line: th.state.line, modal: false, data: response.data,  modalIsOpen: false});
         }).catch(function(err){
             console.log('err get mysql');
@@ -98,7 +101,7 @@ export default class View extends Component{
 
     pauseone(){
         var th = this;
-        axios.post('http://localhost:3002/pause',{id: th.state.id}).then(function(response){
+        axios.post(URL + ':3002/pause',{id: th.state.id}).then(function(response){
         if (response.data == 'success'){
                 th.getData();
                 alert('Băng chuyền ' + th.state.id + ' đã dừng'); 
@@ -124,7 +127,7 @@ export default class View extends Component{
             alert('Chọn và nhập đủ thông tin'); 
         }
         else{
-            axios.post('http://localhost:3002/changeData', {
+            axios.post(URL + ':3002/changeData', {
                 id: th.state.id,
                 delay_time: th.state.delay_time,
                 move_time: th.state.move_time
@@ -179,7 +182,7 @@ export default class View extends Component{
                 <div className="viewLine">
                     <div className="clickLine" onClick={this.openModal1}> Line {this.state.line} </div>
                         <button className="viewButtonPauseAll" onClick={()=>{
-                            axios.post('http://localhost:3002/pauseLine?line=' + th.state.line).then(function(response){
+                            axios.post(URL + ':3002/pauseLine?line=' + th.state.line).then(function(response){
                                 if (response.data == 'success'){
                                     alert('Đã dừng Line ' + th.state.line);
                                     th.setState({line: th.state.line, data: []});

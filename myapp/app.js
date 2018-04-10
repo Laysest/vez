@@ -1,3 +1,4 @@
+var URL = "192.168.20.131";
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -9,16 +10,22 @@ var usersRouter = require('./routes/users');
 
 var http = require('http');
 var mysql = require('mysql');
-var bodyParser = require('body-parser')
-
+var bodyParser = require('body-parser');
+var socketio = require('socket.io');
+var ip = require('ip');
 var app = express();
+var io = require('socket.io')(3009)
+var esp1 = io.of('/esp1') //path
+var middleware = require('socketio-wildcard')();   // de ba't dc tat ca cac socket.emit tu client
+esp1.use(middleware);
+
 app.listen(3002);
 
 var cors = require('cors');
 app.use(cors());
 
 app.use(function(req, res, next) { //allow cross origin requests
-  var allowedOrigins = ["http://localhost:4200", "http://192.168.20.132:4200"];
+  var allowedOrigins = [URL +":4200"];
   var origin = req.headers.origin;
   console.log(origin);
   if(allowedOrigins.indexOf(origin) > -1){
@@ -30,19 +37,52 @@ app.use(function(req, res, next) { //allow cross origin requests
   next();
 });
 
+
+// ko can ------------------------------------------------------------
+io.on('connection', function(socket) {	
+  console.log("Socket client connected to server");
+
+  socket.on('disconnect', function(message){
+    console.log("Socket client " + message + " disconnected???");
+  })	
+});
+
+// --------------------------------------------------------------------
+var conn = mysql.createConnection({
+  host    : 'localhost',
+  user    : 'root',
+  password: 'boy159357',
+  database: 'simone'
+})  
+conn.connect(function(err) {
+  if (err) { console.log('connect mysql err'); 
+          throw err}
+  console.log('You are now connected mysql');
+});
+
+esp1.on('connection', function(socket){
+	console.log('esp1 connected');
+
+	socket.on('disconnect', function(){
+		console.log("esp1 disconnected")
+	})
+
+	socket.on('initial', function(packet){
+    console.log(packet);
+    conn.query('SELECT delay_time, move_time, isActive from simonedb where id = 1', function(err, relsults){
+      if (err) {console.log('select from mysql err'); throw err}
+      else {
+        if (relsults[0].isActive)
+          esp1.emit("change", relsults[0].delay_time + " " + relsults[0].move_time);
+        else esp1.emit("change", "0 0");
+      }
+    })
+  })
+})
+
+
 app.get('/getDataLine', function(req, res){
   var line = req.param('line');
-  var conn = mysql.createConnection({
-    host    : 'localhost',
-    user    : 'root',
-    password: 'boy159357',
-    database: 'simone'
-  })  
-  conn.connect(function(err) {
-    if (err) { console.log('connect mysql err'); 
-            throw err}
-    console.log('You are now connected mysql');
-  });
   conn.query('SELECT id, delay_time, move_time from simonedb where line = ' + line, function(err, relsults){
     if (err) {console.log('select from mysql err'); throw err}
     else {
@@ -53,17 +93,6 @@ app.get('/getDataLine', function(req, res){
 
 app.get('/getDataView', function(req, res){
   var line = req.param('line');
-  var conn = mysql.createConnection({
-    host    : 'localhost',
-    user    : 'root',
-    password: 'boy159357',
-    database: 'simone'
-  })  
-  conn.connect(function(err) {
-    if (err) { console.log('connect mysql err'); 
-            throw err}
-    console.log('You are now connected mysql');
-  });
 
   conn.query('SELECT id, delay_time, move_time, counter, counter_delay from simonedb where isActive = true and line = ' + line, function(err, results){
     if (err) {console.log('select from mysql err'); throw err}
@@ -82,41 +111,25 @@ app.post('/changeData', function(req, res){
   var id = req.body.id;
   var delay_time = req.body.delay_time;
   var move_time = req.body.move_time;
-
-  var conn = mysql.createConnection({
-    host    : 'localhost',
-    user    : 'root',
-    password: 'boy159357',
-    database: 'simone'
-  })  
-  conn.connect(function(err) {
-    if (err) { console.log('connect mysql err'); 
-            throw err}
-    console.log('You are now connected mysql');
-  });
   
   conn.query('update simonedb set delay_time = ' + delay_time +  ', move_time = ' + move_time + ' where id = ' + id, function(err, relsults){
     if (err) {console.log('update from mysql err'); throw err}
     else {
-      console.log('update success')
+      if (id == 1){
+        console.log(delay_time + " " + move_time)
+        esp1.emit("change", delay_time + " " + move_time);
+      }
+      console.log('update success');
       res.send('success');
     }
   })
 })
 
 app.post('/pauseLine', function(req, res){
-  var line = req.param('line')
-  var conn = mysql.createConnection({
-    host    : 'localhost',
-    user    : 'root',
-    password: 'boy159357',
-    database: 'simone'
-  })  
-  conn.connect(function(err) {
-    if (err) { console.log('connect mysql err'); 
-            throw err}
-    console.log('You are now connected mysql');
-  });
+  var line = req.param('line');
+  if (line == 1){
+    esp1.emit("change", "0 0");
+  }
 
   conn.query('update simonedb set isActive = false where line = ' + line, function(err, relsults){
     if (err) {console.log('update from mysql err in pause Line at server'); throw err}
@@ -130,17 +143,6 @@ app.post('/pauseLine', function(req, res){
 app.post('/start', function(req, res){
   console.log(' in start from server');
   var id = req.body.id;
-  var conn = mysql.createConnection({
-    host    : 'localhost',
-    user    : 'root',
-    password: 'boy159357',
-    database: 'simone'
-  })  
-  conn.connect(function(err) {
-    if (err) { console.log('connect mysql err'); 
-            throw err}
-    console.log('You are now connected mysql');
-  });
 
   conn.query('update simonedb set isActive = true where id = ' + id, function(err, relsults){
     if (err) {console.log('update from mysql err in start at server'); throw err}
@@ -154,18 +156,9 @@ app.post('/start', function(req, res){
 app.post('/pause', function(req, res){
   console.log(' in pause from server');
   var id = req.body.id;
-  var conn = mysql.createConnection({
-    host    : 'localhost',
-    user    : 'root',
-    password: 'boy159357',
-    database: 'simone'
-  })  
-  conn.connect(function(err) {
-    if (err) { console.log('connect mysql err'); 
-            throw err}
-    console.log('You are now connected mysql');
-  });
-
+  if (id == 1){
+    esp1.emit("change", "0 0");
+  }
   conn.query('update simonedb set isActive = false where id = ' + id, function(err, relsults){
     if (err) {console.log('update from mysql err in pause at server'); throw err}
     else{

@@ -11,7 +11,7 @@
     "react-scripts": "1.1.1"
   },
   "scripts": {
-    "start": "set PORT=4200 && react-scripts start && node ./myapp/app.js",
+    "start": "set PORT=4200 && start react-scripts start && start node ./myapp/app.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

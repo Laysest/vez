@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import './Setting.css';
 import axios from 'axios';
-import Modal from 'react-modal'
+import Modal from 'react-modal';
+import URL from '../../Host';
 
 function check(tf){
     if (!tf)
@@ -61,7 +62,7 @@ class Setting extends Component{
 
     getData(){
         var th = this;
-        axios.get('http://localhost:3002/getDataLine?line=' + th.state.line).then(function(response){
+        axios.get(URL + ':3002/getDataLine?line=' + th.state.line).then(function(response){
             var z = response.data;
             var i;
             for (i = 0; i < z.length; i++){
@@ -80,7 +81,7 @@ class Setting extends Component{
             alert('Chọn và nhập đủ thông tin'); 
         }
         else{
-            axios.post('http://localhost:3002/changeData', {
+            axios.post(URL + ':3002/changeData', {
                 id: th.state.id,
                 delay_time: th.state.delay_time,
                 move_time: th.state.move_time
@@ -108,7 +109,7 @@ class Setting extends Component{
         var c = true;
         for (i = 0; i < th.state.data.length; i++){
             if (th.state.data[i].tf == true){
-                axios.post('http://localhost:3002/start', {
+                axios.post(URL + ':3002/start', {
                     id: th.state.data[i].id
                 }).then(function(response){
                     if (response.data != 'success'){
