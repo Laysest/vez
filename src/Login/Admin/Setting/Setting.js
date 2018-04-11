@@ -110,7 +110,9 @@ class Setting extends Component{
         for (i = 0; i < th.state.data.length; i++){
             if (th.state.data[i].tf == true){
                 axios.post(URL + ':3002/start', {
-                    id: th.state.data[i].id
+                    id: th.state.data[i].id,
+                    delay_time: th.state.data[i].delay_time,
+                    move_time: th.state.data[i].move_time
                 }).then(function(response){
                     if (response.data != 'success'){
                         alert('Không thể bắt đầu băng chuyền số ' + th.stateate.data[i].id);
@@ -129,11 +131,11 @@ class Setting extends Component{
                 }
             }    
             str += 'đã bắt đầu';
-            alert(str);
             for (i = 0; i < th.state.data.length; i++){
                 th.state.data[i].tf = false;
                 th.setState({line: th.state.line, data: th.state.data, id: th.state.id, move_time: th.state.move_time, delay_time: th.state.delay_time, modalIsOpen: th.state.modalIsOpen});
             }
+            alert(str);
         }
     }
 
@@ -208,7 +210,7 @@ class Setting extends Component{
                         </div>
                         <div className="line_change"> 
                             <p className="text_line_change"> Time move: </p>
-                            <input type="number" value={this.state.move_time} name="time_move" className="input_line_change" onChange={this.handleChange_move}/>
+                            <input type="number" value={this.state.move_time} name="time_move" className="input_line_notchange" onChange={this.handleChange_move}/>
                         </div>
                     </div>
                     <div className="right_box_change">

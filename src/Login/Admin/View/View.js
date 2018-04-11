@@ -141,8 +141,8 @@ export default class View extends Component{
                     th.state.data[i].delay_time = th.state.delay_time;
                     th.state.data[i].move_time = th.state.move_time;
                     th.setState({line: th.state.line, data: th.state.data, id: th.state.id});
-                    alert('Thay đổi băng chuyền số ' + th.state.id + ' thành công.');
                     th.closeModal();
+                    alert('Thay đổi băng chuyền số ' + th.state.id + ' thành công.');
                 }
             }).catch(function(error){
                 console.log(error);
@@ -245,7 +245,7 @@ export default class View extends Component{
                                     </div>
                                     <div className="line_change"> 
                                         <p className="text_line_change"> Time move: </p>
-                                        <input type="number" value={th.state.move_time} onChange={th.handleChange_move} name="time_move" className="input_line_change"/>
+                                        <input type="number" value={th.state.move_time} readonly="readonly" onChange={th.handleChange_move} name="time_move" className="input_line_notchange"/>
                                     </div>
                                 </div>
                                 <div className="right_box_change">
