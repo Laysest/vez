@@ -233,7 +233,7 @@
             margin-bottom: 0.1cm;
             margin-left: 1cm;
             margin-right: 1cm;
-            height: 1.5cm;
+            height: 1cm;
             width: 10cm;
             display: flex;
             flex-direction: row;
@@ -248,7 +248,7 @@
 
             .input_line_notchange{
                 flex-grow: 2;
-                height: 1cm;
+                height: 0.8cm;
                 width: 6cm;
                 margin-left: 0.5cm;
                 border-radius: 10px;
@@ -257,7 +257,7 @@
 
             .input_line_change{
                 flex-grow: 2;
-                height: 1cm;
+                height: 0.8cm;
                 width: 6cm;
                 margin-left: 0.5cm;
                 border-radius: 10px;

@@ -245,7 +245,7 @@ export default class View extends Component{
                                     </div>
                                     <div className="line_change"> 
                                         <p className="text_line_change"> Time move: </p>
-                                        <input type="number" value={th.state.move_time} readonly="readonly" onChange={th.handleChange_move} name="time_move" className="input_line_notchange"/>
+                                        <input type="number" value={th.state.move_time} onChange={th.handleChange_move} name="time_move" className="input_line_notchange"/>
                                     </div>
                                 </div>
                                 <div className="right_box_change">

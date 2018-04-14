@@ -208,13 +208,14 @@ class Setting extends Component{
                             <p className="text_line_change"> Time Delay: </p>
                             <input type="number" value={this.state.delay_time} name="delay_time" className="input_line_change" onChange={this.handleChange_delay}/>
                         </div>
+
                         <div className="line_change"> 
-                            <p className="text_line_change"> Time move: </p>
-                            <input type="number" value={this.state.move_time} name="time_move" className="input_line_notchange" onChange={this.handleChange_move}/>
+                            <p className="text_line_change"> Time Move: </p>
+                            <input type="number" value={this.state.move_time} name="move_time" className="input_line_change" onChange={this.handleChange_move}/>
                         </div>
                     </div>
                     <div className="right_box_change">
-                        <button className="button_submit_change" onClick={this.changeData}> Change </button>
+                        <button className="button_submit_change1" onClick={this.changeData}> Change </button>
                         <button className="button_start_change" onClick={this.start}> Start </button>
                     </div>
                 </div>
