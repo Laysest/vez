@@ -5,8 +5,6 @@ import Modal from 'react-modal'
 import io from 'socket.io-client';
 import URL from '../../Host';
 
-const socket = io(URL +':3009');
-
 function ListBox(props){
     const th = props.t;
     const arr = th.state.data.map((a) => 
@@ -73,6 +71,32 @@ export default class View extends Component{
         this.changeLine = this.changeLine.bind(this);
         this.getData = this.getData.bind(this);
         this.getData();
+    }
+
+    componentDidMount(){
+        var th = this;
+        const socket = io(URL + ':3009');
+        socket.on('count1', (count) => {
+            console.log(count);
+            var i;
+            for (i = 0; i < th.state.data.length; i++){
+                if (th.state.data[i].id == 1){
+                    th.state.data[i].counter = count;
+                }
+            }
+        th.setState({line: th.state.line, data: th.state.data, id: th.state.id, move_time: th.state.move_time, modalIsOpen: th.state.modalIsOpen, delay_time: th.state.delay_time, modal: th.state.modal});
+        })
+
+        socket.on('count_delay1', (count) => {
+            console.log(count);
+            var i;
+            for (i = 0; i < th.state.data.length; i++){
+                if (th.state.data[i].id == 1){
+                    th.state.data[i].counter_delay = count;
+                }
+            }
+        th.setState({line: th.state.line, data: th.state.data, id: th.state.id, move_time: th.state.move_time, modalIsOpen: th.state.modalIsOpen, delay_time: th.state.delay_time});
+        })
     }
 
     getData(){
@@ -176,7 +200,7 @@ export default class View extends Component{
             if (th.state.data[k].id == th.state.id)
                 break;
         }
-
+        
         return(
             <div className="viewContainer">
                 <div className="viewLine">

@@ -40,6 +40,7 @@ app.use(function(req, res, next) { //allow cross origin requests
 
 // ko can ------------------------------------------------------------
 io.on('connection', function(socket) {	
+  console.log('socket ip....zzz');
   console.log("Socket client connected to server");
 
   socket.on('disconnect', function(message){
@@ -62,14 +63,14 @@ conn.connect(function(err) {
 
 esp1.on('connection', function(socket){
 	console.log('esp1 connected');
-  conn.query('SELECT delay_time, move_time, isActive from simonedb where id = 1', function(err, results){
+  conn.query('SELECT delay_time, move_time, counter , counter_delay , isActive from simonedb where id = 1', function(err, results){
     if (err) {console.log('select from mysql err'); throw err}
     else {
       if (results[0].isActive){
-        esp1.emit("get_initial", results[0].delay_time + " " + results[0].move_time);
+        esp1.emit("get_initial", results[0].delay_time + " " + results[0].move_time + " " + results[0].counter + " " + results[0].counter_delay);
       }
       else{
-        esp1.emit("get_initial", "0 0");
+        esp1.emit("get_initial", "0 0 0 0");
       }
     }
   })
@@ -78,8 +79,13 @@ esp1.on('connection', function(socket){
 		console.log("esp1 disconnected")
   })
   
-  socket.on("*", function(packet){
-    console.log('xxxx');
+  socket.on("count1", function(packet){
+    io.sockets.emit('count1', packet.n);
+    conn.query('UPDATE simonedb set counter = ' + packet.n + ' where id = 1');    
+  })
+  socket.on("count_delay1", function(packet){
+    io.sockets.emit('count_delay1', packet.n);
+    conn.query('UPDATE simonedb set counter_delay = ' + packet.n + ' where id = 1');    
   })
 })
 
@@ -123,10 +129,10 @@ app.post('/changeData', function(req, res){
           if (err) {console.log('select from mysql err'); throw err}
           else {
             if (results[0].isActive){
-              esp1.emit("change_start", results[0].delay_time + " " + results[0].move_time);
+              esp1.emit("change", results[0].delay_time + " " + results[0].move_time);
             }
             else{
-              esp1.emit("change_start", "0 0");
+              esp1.emit("change", "0 0");
             }
           }
         })
@@ -162,6 +168,8 @@ app.post('/changeData', function(req, res){
 
 app.post('/pauseLine', function(req, res){
   esp1.emit("reverse", "z z");
+  res.send('success');
+//  io.sockets.emit('count1', 123);
 })
 
 
@@ -171,7 +179,7 @@ app.post('/start', function(req, res){
   var delay_time = req.body.delay_time;
   var move_time = req.body.move_time;
 
-  conn.query('update simonedb set isActive = true where id = ' + id, function(err, results){
+  conn.query('update simonedb set isActive = true, counter = 0, counter_delay = 0 where id = ' + id, function(err, results){
     if (err) {console.log('update from mysql err in start at server'); throw err}
     else{
       console.log('start success in server');
@@ -179,7 +187,7 @@ app.post('/start', function(req, res){
     }
   })
   if (id == 1)
-    esp1.emit("change_start", delay_time + " " + move_time);
+    esp1.emit("change_start", delay_time + " " + move_time + " 0 0");
 })
 
 app.post('/pause', function(req, res){
@@ -189,7 +197,7 @@ app.post('/pause', function(req, res){
     if (err) {console.log('update from mysql err in pause at server'); throw err}
     else{
       if (id == 1){
-        esp1.emit("change_start", "0 0");
+        esp1.emit("change", "0 0");
       }
       console.log('pause success in server');
       res.send('success');
