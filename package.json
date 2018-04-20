@@ -12,7 +12,7 @@
     "socket.io-client": "^2.1.0"
   },
   "scripts": {
-    "start": "PORT=4200 react-scripts start & node ./myapp/app.js",
+    "start": "set PORT=4200 && start react-scripts start && start node ./myapp/app.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

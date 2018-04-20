@@ -5,56 +5,110 @@ import Modal from 'react-modal'
 import io from 'socket.io-client';
 import URL from '../../Host';
 
+
+
 function ListBox(props){
     const th = props.t;
-    const arr = th.state.data.map((a) => 
-    <button className="viewBox"  onClick = {() => {th.setState({line: th.state.line, data: th.state.data, id: a.id, delay_time: a.delay_time, move_time: a.move_time, modalIsOpen: true})}}>
-        <div className="canngangviewBox">
-            <div className="viewId">
-                <div className="candocviewBox"> 
-                    <div className="viewTopId"> Id</div>
-                    <div className="viewBodyId"> 
-                        <p className="viewTextBodyId"> {a.id} </p>
+    const arr = th.state.data.map((a) => {
+        if (a.isActive){
+            return(
+                <button className="viewBox"  onClick = {() => {th.setState({line: th.state.line, data: th.state.data, id: a.id, delay_time: a.delay_time, move_time: a.move_time, modalIsOpen: true, isActive: a.isActive})}}>
+                    <div className="canngangviewBox">
+                        <div className="viewId">
+                            <div className="candocviewBox"> 
+                                <div className="viewTopId"> Id</div>
+                                <div className="viewBodyId"> 
+                                    <p className="viewTextBodyId"> {a.id} </p>
+                                </div>
+                            </div>
+                        </div>     
+                        <div className="viewDelay">
+                            <div className="candocviewBox"> 
+                                <div className="viewTopId"> Time delay</div>
+                                <div className="viewBodyId"> 
+                                    <p className="viewTextBodyId"> {a.delay_time} </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="viewMove">
+                            <div className="candocviewBox">
+                                <div className="viewTopId">Speed</div>
+                                <div className="viewBodyId"> 
+                                    <p className="viewTextBodyId"> {a.move_time} </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="canngangviewBox">
+                        <div className="viewCount"> 
+                            <div className="candocviewBox">
+                                <div className="viewTopCount"> Actual Counts </div>
+                                <blink className="viewBodyCount"> {a.counter} </blink>
+                            </div>
+                        </div>
+                        <div className="viewDelayCount"> 
+                            <div className="candocviewBox">
+                                <div className="viewTopCount"> Missed Counts </div>
+                                <div className="viewBodyCount"> {a.counter_delay} </div>
+                            </div>
+                        </div>
+                    </div>
+                </button>
+            )
+        }   
+        else{
+            return(
+                <div className="viewBoxNotActive"  onClick = {() => {th.setState({line: th.state.line, data: th.state.data, id: a.id, delay_time: a.delay_time, move_time: a.move_time, modalIsOpen: true, isActive: a.isActive})}}>
+                    <div className="canngangviewBox">
+                        <div className="viewId">
+                            <div className="candocviewBox"> 
+                                <div className="viewTopId"> Id</div>
+                                <div className="viewBodyId"> 
+                                    <p className="viewTextBodyId"> {a.id} </p>
+                                </div>
+                            </div>
+                        </div>     
+                        <div className="viewDelay">
+                            <div className="candocviewBox"> 
+                                <div className="viewTopId"> Time delay</div>
+                                <div className="viewBodyId"> 
+                                    <p className="viewTextBodyId"> {a.delay_time} </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="viewMove">
+                            <div className="candocviewBox">
+                                <div className="viewTopId">Speed</div>
+                                <div className="viewBodyId"> 
+                                    <p className="viewTextBodyId"> {a.move_time} </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="canngangviewBox">
+                        <div className="viewCount"> 
+                            <div className="candocviewBox">
+                                <div className="viewTopCount"> Actual Counts </div>
+                                <blink className="viewBodyCountNotActive"> {a.counter} </blink>
+                            </div>
+                        </div>
+                        <div className="viewDelayCount"> 
+                            <div className="candocviewBox">
+                                <div className="viewTopCount"> Missed Counts </div>
+                                <div className="viewBodyCountNotActive"> {a.counter_delay} </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>     
-            <div className="viewDelay">
-                <div className="candocviewBox"> 
-                    <div className="viewTopId"> Time delay</div>
-                    <div className="viewBodyId"> 
-                        <p className="viewTextBodyId"> {a.delay_time} </p>
-                    </div>
-                </div>
-            </div>
-            <div className="viewMove">
-                <div className="candocviewBox">
-                    <div className="viewTopId">Time move</div>
-                    <div className="viewBodyId"> 
-                        <p className="viewTextBodyId"> {a.move_time} </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div className="canngangviewBox">
-            <div className="viewCount"> 
-                <div className="candocviewBox">
-                    <div className="viewTopCount"> Count </div>
-                    <blink className="viewBodyCount"> {a.counter} </blink>
-                </div>
-            </div>
-            <div className="viewDelayCount"> 
-                <div className="candocviewBox">
-                    <div className="viewTopCount"> Delay </div>
-                    <div className="viewBodyCount"> {a.counter_delay} </div>
-                </div>
-            </div>
-        </div>
-    </button>)
+            )
+        }
+    })
 
     return(
         <div className="zz"> {arr} </div>
     )
 }
+
 
 export default class View extends Component{
     constructor(props){
@@ -70,6 +124,9 @@ export default class View extends Component{
         this.change = this.change.bind(this);
         this.changeLine = this.changeLine.bind(this);
         this.getData = this.getData.bind(this);
+        this.start = this.start.bind(this);
+        this.startAll = this.startAll.bind(this);
+        this._handleKeyPress = this._handleKeyPress.bind(this);
         this.getData();
     }
 
@@ -84,7 +141,7 @@ export default class View extends Component{
                     th.state.data[i].counter = count;
                 }
             }
-        th.setState({line: th.state.line, data: th.state.data, id: th.state.id, move_time: th.state.move_time, modalIsOpen: th.state.modalIsOpen, delay_time: th.state.delay_time, modal: th.state.modal});
+        th.setState({line: th.state.line, data: th.state.data, id: th.state.id, move_time: th.state.move_time, modalIsOpen: th.state.modalIsOpen, delay_time: th.state.delay_time, modal: th.state.modal, isActive: th.state.isActive});
         })
 
         socket.on('count_delay1', (count) => {
@@ -95,7 +152,7 @@ export default class View extends Component{
                     th.state.data[i].counter_delay = count;
                 }
             }
-        th.setState({line: th.state.line, data: th.state.data, id: th.state.id, move_time: th.state.move_time, modalIsOpen: th.state.modalIsOpen, delay_time: th.state.delay_time});
+        th.setState({line: th.state.line, data: th.state.data, id: th.state.id, move_time: th.state.move_time, modalIsOpen: th.state.modalIsOpen, delay_time: th.state.delay_time, isActive: th.state.isActive});
         })
     }
 
@@ -110,17 +167,18 @@ export default class View extends Component{
     }
 
     openModal() {
-        this.setState({line: this.state.line, modal: false, data: this.state.data, modalIsOpen: true});
+        this.setState({line: this.state.line, modal: false, data: this.state.data, modalIsOpen: true, isActive: this.state.isActive});
       }
     closeModal() {
-        this.setState({line: this.state.line, modal: false, data: this.state.data, modalIsOpen: false});
+        this.setState({line: this.state.line, modal: false, data: this.state.data, modalIsOpen: false, isActive: this.state.isActive});
       }
 
       openModal1() {
-        this.setState({line: this.state.line, modal: true, data: this.state.data, modalIsOpen: false});
+          console.log(this.state.isActive);
+        this.setState({line: this.state.line, modal: true, data: this.state.data, modalIsOpen: false, isActive: this.state.isActive});
       }
     closeModal1() {
-        this.setState({line: this.state.line, modal: false, data: this.state.data, modalIsOpen: false});
+        this.setState({line: this.state.line, modal: false, data: this.state.data, modalIsOpen: false, isActive: this.state.isActive});
       }
 
     pauseone(){
@@ -128,7 +186,7 @@ export default class View extends Component{
         axios.post(URL + ':3002/pause',{id: th.state.id}).then(function(response){
         if (response.data == 'success'){
                 th.getData();
-                alert('Băng chuyền ' + th.state.id + ' đã dừng'); 
+                alert('Belt ' + th.state.id + ' stopped'); 
                 th.closeModal();
             }
         }).catch(function(err){
@@ -148,7 +206,7 @@ export default class View extends Component{
     change(){
         var th = this;
         if (th.state.id == ""){
-            alert('Chọn và nhập đủ thông tin'); 
+            alert('Error'); 
         }
         else{
             axios.post(URL + ':3002/changeData', {
@@ -166,7 +224,7 @@ export default class View extends Component{
                     th.state.data[i].move_time = th.state.move_time;
                     th.setState({line: th.state.line, data: th.state.data, id: th.state.id});
                     th.closeModal();
-                    alert('Thay đổi băng chuyền số ' + th.state.id + ' thành công.');
+                    alert('Change Belt ' + th.state.id + ' successfully.');
                 }
             }).catch(function(error){
                 console.log(error);
@@ -179,6 +237,50 @@ export default class View extends Component{
     handleChange_move(event) {
         this.setState({line: this.state.line, data: this.state.data, id: this.state.id, move_time: event.target.value, modalIsOpen: true, delay_time: this.state.delay_time});
     }
+
+    _handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+          this.change();
+        }
+      }
+
+    start(){
+        var th = this;
+        var id = this.state.id;
+        axios.post(URL + ':3002/start', {
+            id: th.state.id,
+            delay_time: th.state.delay_time,
+            move_time: th.state.move_time}).then(function(response){
+                    if (response.data != 'success'){
+                        alert('Cannot start belt ' + id);
+                    }
+                    else{
+                        th.getData();
+                        alert('Belt ' + id + ' started!');
+                    }
+            }).catch(function(error){
+                console.log('active is failed from client');
+            })            
+    }
+
+
+    startAll(){
+        var th = this;
+        axios.post(URL + ':3002/startLine', {
+            line: th.state.line
+            }).then(function(response){
+            if (response.data != 'success'){
+                alert('Cannot start line');
+            }
+            else{
+                th.getData();
+                alert('All belt in line ' + th.state.line + ' started');
+            }
+        }).catch(function(error){
+            console.log('active is failed from client');
+        })
+    }
+
 
     render(){
         var th = this;
@@ -205,11 +307,13 @@ export default class View extends Component{
             <div className="viewContainer">
                 <div className="viewLine">
                     <div className="clickLine" onClick={this.openModal1}> Line {this.state.line} </div>
+                        <button className="viewButtonStartAll" onClick={this.startAll}> Start Line </button>
+                        
                         <button className="viewButtonPauseAll" onClick={()=>{
                             axios.post(URL + ':3002/pauseLine?line=' + th.state.line).then(function(response){
                                 if (response.data == 'success'){
-                                    alert('Đã dừng Line ' + th.state.line);
-                                    th.setState({line: th.state.line, data: []});
+                                    th.getData();
+                                    alert('Line ' + th.state.line + ' stopped');
                                 }
                             }).catch(function(err){
                                 console.log('err post mysql');
@@ -264,16 +368,16 @@ export default class View extends Component{
                                         className="input_line_notchange"/>
                                     </div>
                                     <div className="line_change"> 
-                                        <p className="text_line_change"> Time Delay: </p>
-                                        <input type="number" value={th.state.delay_time} onChange={th.handleChange_delay} name="delay_time" className="input_line_change"/>
+                                        <p className="text_line_change"> Time Delay(sec): </p>
+                                        <input type="number" onKeyPress={this._handleKeyPressId} value={th.state.delay_time} onChange={th.handleChange_delay} name="delay_time" className="input_line_change"/>
                                     </div>
                                     <div className="line_change"> 
-                                        <p className="text_line_change"> Time move: </p>
-                                        <input type="number" value={th.state.move_time} onChange={th.handleChange_move} name="time_move" className="input_line_notchange"/>
+                                        <p className="text_line_change"> Speed: </p>
+                                        <input type="number" onKeyPress={this._handleKeyPressId} value={th.state.move_time} onChange={th.handleChange_move} name="time_move" className="input_line_notchange"/>
                                     </div>
                                 </div>
                                 <div className="right_box_change">
-                                    <button className="button_stop_change" onClick={th.pauseone} > Stop </button>
+                                    {!th.state.isActive ? <button className="button_view_start_change" onClick={this.start} > Start </button> : <button className="button_stop_change" onClick={this.pauseone}> Stop </button>}
                                     <button className="button_submit_change" onClick={th.change}> Change </button>
                                 </div>
                             </div>

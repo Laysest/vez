@@ -51,6 +51,14 @@
             margin-right: 0.5cm;
         }
 
+        .viewButtonStartAll{
+            background-color: yellowgreen;
+            font-weight: bold;
+            border-radius: 10px;
+            margin-right: 0.5cm;
+        }
+
+
         .viewBox{
             margin: 0.5cm;
             display: flex;
@@ -61,7 +69,21 @@
             flex-direction: column;
             align-items: right;
             justify-content: flex-start;
+            background: palegoldenrod;
         }
+        .viewBoxNotActive{
+            margin: 0.5cm;
+            display: flex;
+            width: 6.3cm;
+            height: 5cm;
+            border-radius: 10px;        
+            border-width: 0cm;
+            flex-direction: column;
+            align-items: right;
+            justify-content: flex-start;
+            background-color: grey;
+        }
+
         .viewBox:active{
             background-color: yellowgreen;
         }
@@ -103,11 +125,11 @@
                 width: 2cm;
                 height: 2cm;
                 display: flex;
-                background-color: palegoldenrod;
                 border-style: solid;
                 border-width: 0.05cm;
             }
                 .viewTopId{
+                    font-size: 0.4cm;
                     border-top-left-radius: 10px;
                     width: 2cm;
                     height: 0.7cm;
@@ -132,7 +154,6 @@
                 width: 2cm;
                 height: 2cm;
                 display: flex;
-                background-color: palegoldenrod;
                 border-style: solid;
                 border-width: 0.05cm;
             }
@@ -141,7 +162,6 @@
                 width: 2cm;
                 height: 2cm;
                 display: flex;
-                background-color: palegoldenrod;
                 border-style: solid;
                 border-width: 0.05cm;
             }
@@ -152,7 +172,6 @@
                 width: 3.05cm;
                 height: 2.8cm;
                 display: flex;
-                background-color: palegoldenrod;
                 border-style: solid;
                 border-width: 0.05cm;
             }
@@ -191,10 +210,27 @@
                 width: 3.05cm;
                 height: 2.8cm;
                 display: flex;
-                background-color: palegoldenrod;
                 border-style: solid;
                 border-width: 0.05cm;
             }
+
+            .viewBodyCountNotActive{
+                width: 3.05cm;
+                height: 2.1cm;
+                text-align: center;
+                vertical-align: center;
+                margin-top: 0.4cm;
+                font-size: 250%;
+            }
+
+        .viewDelayCountNotActive{
+            border-bottom-right-radius: 10px;
+            width: 3.05cm;
+            height: 2.8cm;
+            display: flex;
+            border-style: solid;
+            border-width: 0.05cm;
+        }
 .zz{
     display: flex;
     width: 100%;
@@ -287,5 +323,15 @@
             background-color: orangered;
         }
         .button_stop_change:active{
+            background-color: white;
+        }
+
+        .button_view_start_change{
+            width: 2cm;
+            height: 1.5cm;
+            border-radius: 9px;
+            background-color: yellowgreen;
+        }
+        .button_view_start_change:active{
             background-color: white;
         }

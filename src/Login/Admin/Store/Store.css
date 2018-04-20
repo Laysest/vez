@@ -1,0 +1,89 @@
+.storeContainer{
+    display: flex;
+    position: fixed;
+    flex-grow: 1;
+    width: 100%;
+    height: 95%;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+
+    .modal_chooseLine{
+        display: flex;
+        flex-direction: row;
+        height: 6cm;
+        width: 12cm;
+        flex-wrap: wrap;
+    }
+        .modal_oneLine{
+            width: 3cm;
+            height: 1cm;
+            line-height: 1cm;
+            margin: 0.3cm;
+            text-align: center;
+            border-radius: 5px;
+            background-color: navajowhite;
+            white-space: nowrap;          
+        }
+
+
+
+    .settingLine{
+        display: flex;
+        flex-grow: 0;
+        height: 1cm;
+        width: 100%;
+        flex-direction: row;
+        font-size: 150%;
+        font-weight: bold;
+        justify-content: space-between;
+    }
+
+    .cang_ngangid{
+        display: flex;
+        flex-grow: 0;
+        width: 100%;
+        flex-direction: column;
+        text-align: center;
+        font-size: 150%;
+        font-weight: bold;
+    }
+
+    .cang_ngangst{
+        display: flex;
+        flex-grow: 0;
+        width: 100%;
+        text-align: left;
+        flex-wrap: wrap;        
+    }
+
+    .cang_docst{
+        display: flex;
+        flex-grow: 0;
+        flex-direction: column;
+        background-color: greenyellow;
+        margin: 0.5cm;
+    }
+
+    .cang_docst1{
+        display: flex;
+        flex-grow: 0;
+        flex-direction: column;
+        margin: 0.5cm;
+    }
+
+    .boxst{
+        display: flex;
+        flex-direction: column;
+        height: 3.7cm;
+        width: 10cm;
+        padding: 0.15cm;
+        line-height: 1cm;
+        background-color: gainsboro;
+        margin: 0.25cm;
+        margin-right: 1.5cm;
+        font-size: 120%;
+        border-radius: 10px;
+    }
