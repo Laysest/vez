@@ -24,10 +24,11 @@ function ListBox(props){
                         else    
                             th.setState({line: th.state.line, data: th.state.data, id: th.state.id, delay_time: th.state.delay_time, move_time: th.state.move_time, modalIsOpen: th.state.modalIsOpen, modal: th.state.modal});
                     }}> 
-                    <p className="textboxsetting">Id : {a.id}<br/>
-                        Time_delay(sec): {a.delay_time} <br/>  
-                        Speed: {a.move_time} <br />
-                    </p>
+                    <div className="textboxsetting">
+                        <div className="textboxsettingId"> Id : {a.id} </div>
+                        <div className="textboxsettingdelay">    Time Delay (s): {a.delay_time} </div>  
+                        <div className="textboxsettingmove">    Time Move (s): {a.move_time} </div>
+                    </div>
                 </button>
             )
         }
@@ -238,13 +239,13 @@ class Setting extends Component{
 
     render(){
         var th = this;
-        const customStyles = {
+        const customStyles1 = {
             content: {
                 height: '6cm',
-                width: '12cm'
+                width: '8cm'
             }
         }
-        const customStyles1 = {
+        const customStyles = {
             content : {
                 top                   : '50%',
                 left                  : '50%',
@@ -259,37 +260,33 @@ class Setting extends Component{
           
         return(
             <div className="settingContainer"> 
+
                         <Modal
                             isOpen={this.state.modalIsOpen}
-                            style={customStyles}
-                            onRequestClose={this.closeModal}
+                            style={customStyles1}
+                            onRequestClose={this.closeModal1}
+                            contentLabel="Example Modal1"
                             >   
                             <div className="modal_chooseLine"> 
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(1)}> Line 1 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(2)}> Line 2 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(3)}> Line 3 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(4)}> Line 4 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(5)}> Line 5 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(6)}> Line 6 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(7)}> Line 7 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(8)}> Line 8 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(9)}> Line 9 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(10)}> Line 10 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(11)}> Line 11 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(12)}> Line 12 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(13)}> Line 13 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(14)}> Line 14 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(15)}> Line 15 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(16)}> Line 16 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(17)}> Line 17 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(18)}> Line 18 </button>
+                                <div className="modal_header"> Select Line </div>
+                                <div className="modal_AllLine">
+                                    <button className="modal_oneLine" onClick={()=>this.changeLine(1)}> Line 1 </button>
+                                    <button className="modal_oneLine" onClick={()=>this.changeLine(2)}> Line 2 </button>
+                                    <button className="modal_oneLine" onClick={()=>this.changeLine(3)}> Line 3 </button>
+                                    <button className="modal_oneLine" onClick={()=>this.changeLine(4)}> Line 4 </button>
+                                    <button className="modal_oneLine" onClick={()=>this.changeLine(5)}> Line 5 </button>
+                                    <button className="modal_oneLine" onClick={()=>this.changeLine(6)}> Line 6 </button>
+                                    <button className="modal_oneLine" onClick={()=>this.changeLine(7)}> Line 7 </button>
+                                    <button className="modal_oneLine" onClick={()=>this.changeLine(8)}> Line 8 </button>
+                                    <button className="modal_oneLine" onClick={()=>this.changeLine(9)}> Line 9 </button>
+                                </div>
                             </div>
                         </Modal>
 
                         <Modal
                             isOpen={this.state.modal}
-                            style={customStyles1}
-                            onRequestClose={this    .closeModal1}
+                            style={customStyles}
+                            onRequestClose={this.closeModal1}
                             >   
                                 <div className="right_box_change">
                                     <div className="line_change"> 
@@ -313,23 +310,20 @@ class Setting extends Component{
                             className="input_line_notchange"/>
                         </div>
                         <div className="line_change"> 
-                            <p className="text_line_change"> Time Delay(sec): </p>
+                            <p className="text_line_change"> Time Delay (s): </p>
                             <input type="number" value={this.state.delay_time} name="delay_time" className="input_line_change" onKeyPress={this._handleKeyPress} onChange={this.handleChange_delay}/>
                         </div>
 
                         <div className="line_change"> 
-                            <p className="text_line_change"> Speed: </p>
+                            <p className="text_line_change"> Time Move (s): </p>
                             <input type="number" value={this.state.move_time} name="move_time" className="input_line_change" onKeyPress={this._handleKeyPress} onChange={this.handleChange_move}/>
                         </div>
                     </div>
-                    <div className="right_box_change">
+                    <div className="right_box_change_setting">
                         <button className="button_submit_change1" onClick={this.changeData}> Change </button>
-                        <button className="button_start_change" onClick={this.start}> Start Belt is Chosen</button>
+                        <button className="button_start_change" onClick={this.start}> Start</button>
+                        <button className="button_start_all" onClick={this.startAll}> Pause</button>
                     </div>
-                    <div className="right_box_change">
-                        <button className="button_start_all" onClick={this.startAll}> Start All Belt in Line</button>
-                    </div>
-
                 </div>
                 <div className="settingbot"> </div>
             </div>

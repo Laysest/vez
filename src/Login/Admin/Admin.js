@@ -28,9 +28,9 @@ class Admin extends Component{
                     <InterFace goSetting={this.state.goSetting} goView={this.state.goView} goStore={this.state.goStore} th={this}/>
                 </div>
                 <div className="adminMenu">
-                    <button className= "adminbutton" name="goSetting" onClick={()=>{this.setState({goSetting: true, goView: false, goStore: false})}}> Register </button>
-                    <button className= "adminbutton" name="goView" onClick={()=>{this.setState({goSetting: false, goView: true, goStore: false})}}>Monitor</button>
-                    <button className= "adminbutton" name="goStore" onClick={()=>{this.setState({goSetting: false, goView: false, goStore: true})}}>Store Data</button>
+                    <div className= "adminbutton" name="goSetting" onClick={()=>{this.setState({goSetting: true, goView: false, goStore: false})}}> Register </div>
+                    <div className= "adminbutton" name="goView" onClick={()=>{this.setState({goSetting: false, goView: true, goStore: false})}}>Monitor</div>
+                    <div className= "adminbutton" name="goStore" onClick={()=>{this.setState({goSetting: false, goView: false, goStore: true})}}>Store Data</div>
                 </div>
             </div>
         );

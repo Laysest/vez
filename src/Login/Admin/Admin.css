@@ -6,7 +6,6 @@
     height: 100%;
     background-color: white;
     flex-direction: column;
-    overflow: scroll;
 }
 
 .adminBody{
@@ -19,19 +18,21 @@
 .adminMenu{
     display: flex;
     flex-direction: column;
+    height: 1cm;
     flex-grow: 0;
     justify-content: center;
     flex-direction: row;
+    background-color: aliceblue;
 }
 
     .adminbutton{
-        background-color: pink;
+        margin-top: 0.3cm;
         margin-left: 1cm;
         margin-right: 1cm;
-        margin-bottom: 0cm;
         height: 1cm;
         width: 3.3cm;
         border-radius: 10px;
+        text-align: center;
     }
     
 /*            position: absolute;*/

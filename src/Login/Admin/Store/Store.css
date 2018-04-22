@@ -9,28 +9,7 @@
     justify-content: flex-start;
 }
 
-
-    .modal_chooseLine{
-        display: flex;
-        flex-direction: row;
-        height: 6cm;
-        width: 12cm;
-        flex-wrap: wrap;
-    }
-        .modal_oneLine{
-            width: 3cm;
-            height: 1cm;
-            line-height: 1cm;
-            margin: 0.3cm;
-            text-align: center;
-            border-radius: 5px;
-            background-color: navajowhite;
-            white-space: nowrap;          
-        }
-
-
-
-    .settingLine{
+    .storeLine{
         display: flex;
         flex-grow: 0;
         height: 1cm;

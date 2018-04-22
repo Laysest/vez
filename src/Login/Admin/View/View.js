@@ -12,7 +12,7 @@ function ListBox(props){
     const arr = th.state.data.map((a) => {
         if (a.isActive){
             return(
-                <button className="viewBox"  onClick = {() => {th.setState({line: th.state.line, data: th.state.data, id: a.id, delay_time: a.delay_time, move_time: a.move_time, modalIsOpen: true, isActive: a.isActive})}}>
+                <div className="viewBox"  onClick = {() => {th.setState({line: th.state.line, data: th.state.data, id: a.id, delay_time: a.delay_time, move_time: a.move_time, modalIsOpen: true, isActive: a.isActive})}}>
                     <div className="canngangviewBox">
                         <div className="viewId">
                             <div className="candocviewBox"> 
@@ -32,7 +32,7 @@ function ListBox(props){
                         </div>
                         <div className="viewMove">
                             <div className="candocviewBox">
-                                <div className="viewTopId">Speed</div>
+                                <div className="viewTopId"> Time Move</div>
                                 <div className="viewBodyId"> 
                                     <p className="viewTextBodyId"> {a.move_time} </p>
                                 </div>
@@ -53,7 +53,7 @@ function ListBox(props){
                             </div>
                         </div>
                     </div>
-                </button>
+                </div>
             )
         }   
         else{
@@ -78,7 +78,7 @@ function ListBox(props){
                         </div>
                         <div className="viewMove">
                             <div className="candocviewBox">
-                                <div className="viewTopId">Speed</div>
+                                <div className="viewTopId">Time Move</div>
                                 <div className="viewBodyId"> 
                                     <p className="viewTextBodyId"> {a.move_time} </p>
                                 </div>
@@ -208,6 +208,9 @@ export default class View extends Component{
         if (th.state.id == ""){
             alert('Error'); 
         }
+        else if (th.state.move_time < 3 && th.state.move_time > 10){
+            alert('Move time must more than 3s and less than 10s.')
+        }
         else{
             axios.post(URL + ':3002/changeData', {
                 id: th.state.id,
@@ -286,14 +289,14 @@ export default class View extends Component{
         var th = this;
         const customStyles = {
             content: {
-                height: '6cm',
+                height: '8cm',
                 width: '15cm'
             }
         }
         const customStyles1 = {
             content: {
                 height: '6cm',
-                width: '12cm'
+                width: '8cm'
             }
         }
         
@@ -330,24 +333,18 @@ export default class View extends Component{
                             contentLabel="Example Modal1"
                             >   
                             <div className="modal_chooseLine"> 
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(1)}> Line 1 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(2)}> Line 2 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(3)}> Line 3 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(4)}> Line 4 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(5)}> Line 5 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(6)}> Line 6 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(7)}> Line 7 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(8)}> Line 8 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(9)}> Line 9 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(10)}> Line 10 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(11)}> Line 11 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(12)}> Line 12 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(13)}> Line 13 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(14)}> Line 14 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(15)}> Line 15 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(16)}> Line 16 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(17)}> Line 17 </button>
-                                <button className="modal_oneLine" onClick={()=>this.changeLine(18)}> Line 18 </button>
+                                <div className="modal_header"> Select Line </div>
+                                <div className="modal_AllLine">
+                                    <button className="modal_oneLine" onClick={()=>this.changeLine(1)}> Line 1 </button>
+                                    <button className="modal_oneLine" onClick={()=>this.changeLine(2)}> Line 2 </button>
+                                    <button className="modal_oneLine" onClick={()=>this.changeLine(3)}> Line 3 </button>
+                                    <button className="modal_oneLine" onClick={()=>this.changeLine(4)}> Line 4 </button>
+                                    <button className="modal_oneLine" onClick={()=>this.changeLine(5)}> Line 5 </button>
+                                    <button className="modal_oneLine" onClick={()=>this.changeLine(6)}> Line 6 </button>
+                                    <button className="modal_oneLine" onClick={()=>this.changeLine(7)}> Line 7 </button>
+                                    <button className="modal_oneLine" onClick={()=>this.changeLine(8)}> Line 8 </button>
+                                    <button className="modal_oneLine" onClick={()=>this.changeLine(9)}> Line 9 </button>
+                                </div>
                             </div>
                         </Modal>
 
@@ -372,8 +369,8 @@ export default class View extends Component{
                                         <input type="number" onKeyPress={this._handleKeyPressId} value={th.state.delay_time} onChange={th.handleChange_delay} name="delay_time" className="input_line_change"/>
                                     </div>
                                     <div className="line_change"> 
-                                        <p className="text_line_change"> Speed: </p>
-                                        <input type="number" onKeyPress={this._handleKeyPressId} value={th.state.move_time} onChange={th.handleChange_move} name="time_move" className="input_line_notchange"/>
+                                        <p className="text_line_change"> Time Move(sec): </p>
+                                        <input type="number" onKeyPress={this._handleKeyPressId} value={th.state.move_time} onChange={th.handleChange_move} name="time_move" className="input_line_change"/>
                                     </div>
                                 </div>
                                 <div className="right_box_change">

@@ -18,7 +18,7 @@
     flex-wrap: wrap;
 }
     .modal_oneLine{
-        width: 3cm;
+        width: 2cm;
         height: 1cm;
         line-height: 1cm;
         margin: 0.3cm;
@@ -263,41 +263,6 @@
     .left_box_change{
         flex-grow: 0;
     }
-        .line_change{
-            background-color: gainsboro;
-            margin-top: 0.3cm;
-            margin-bottom: 0.1cm;
-            margin-left: 1cm;
-            margin-right: 1cm;
-            height: 1cm;
-            width: 10cm;
-            display: flex;
-            flex-direction: row;
-            text-align: left;
-            align-items: center;
-        }
-            .text_line_change{
-                width: 2cm;
-                flex-grow: 2;
-                margin-left: 0.5cm;
-            }
-
-            .input_line_notchange{
-                flex-grow: 2;
-                height: 0.8cm;
-                width: 6cm;
-                margin-left: 0.5cm;
-                border-radius: 10px;
-                background-color: yellow;
-            }
-
-            .input_line_change{
-                flex-grow: 2;
-                height: 0.8cm;
-                width: 6cm;
-                margin-left: 0.5cm;
-                border-radius: 10px;
-            }
 
     .right_box_change{
         display: flex;

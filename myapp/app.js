@@ -1,4 +1,4 @@
-var URL = "192.168.100.8";
+var URL = "192.168.100.16";
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -68,7 +68,7 @@ esp1.on('connection', function(socket){
     if (err) {console.log('select from mysql err'); throw err}
     else {
       if (results[0].isActive){
-        esp1.emit("get_initial", results[0].delay_time + " " + results[0].move_time + " " + results[0].counter + " " + results[0].counter_delay);
+        esp1.emit("get_initial", results[0].delay_time + " " + results[0].move_time + " " + results[0].counter + " " + results[0].counter_delay );
       }
       else{
         esp1.emit("get_initial", "0 0 0 0");
