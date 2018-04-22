@@ -241,7 +241,7 @@ class Setting extends Component{
         var th = this;
         const customStyles1 = {
             content: {
-                height: '6cm',
+                height: '5.25cm',
                 width: '8cm'
             }
         }

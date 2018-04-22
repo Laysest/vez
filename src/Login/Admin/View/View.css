@@ -10,23 +10,6 @@
     justify-content: center;
 }
 
-.modal_chooseLine{
-    display: flex;
-    flex-direction: row;
-    height: 6cm;
-    width: 12cm;
-    flex-wrap: wrap;
-}
-    .modal_oneLine{
-        width: 2cm;
-        height: 1cm;
-        line-height: 1cm;
-        margin: 0.3cm;
-        text-align: center;
-        border-radius: 5px;
-        background-color: navajowhite;
-        white-space: nowrap;          
-    }
 
     .viewLine{
         display: flex;

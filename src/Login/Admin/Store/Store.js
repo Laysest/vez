@@ -3,7 +3,7 @@ import './Store.css';
 import axios from 'axios';
 import Modal from 'react-modal';
 import URL from '../../Host';
-
+import {Bar} from 'react-chartjs-2';
 
 class Store extends Component{
     constructor(props){
@@ -34,22 +34,31 @@ class Store extends Component{
         var th = this;
         const customStyles = {
             content: {
-                height: '5.25cm',
+                height: '6.25cm',
                 width: '8cm'
             }
         }
 
         var data= {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            labels: ["18/4", "19/4", "20/4", "21/4", "22/4", "23/4"],
             datasets: [{
-            label: "My First dataset",
-            backgroundColor: 'rgb(255, 99, 132)',
+            label: "Actual Counts of Belt 1",
+            backgroundColor: 'blue',
             borderColor: 'rgb(255, 99, 132)',
-            data: [0, 10, 5, 2, 20, 30, 45],
+            data: [240 ,250, 255, 300, 290, 298, 305, 310]
             }]
         }
     
-        
+        var data1= {
+            labels: ["18/4", "19/4", "20/4", "21/4", "22/4", "23/4"],
+            datasets: [{
+            label: "Actual Counts of Belt 2",
+            backgroundColor: 'blue',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [320, 350, 355, 310, 390, 398, 405, 410]
+            }]
+        }
+    
         return(
             <div className="storeContainer"> 
                         <div className="storeLine" onClick={this.openModal}> Line {this.state.line}  </div>
@@ -74,6 +83,15 @@ class Store extends Component{
                                 </div>
                             </div>
                         </Modal>
+                        <div className="containerChart">
+                            <div className="chart">
+                                <Bar data={data} 	width={4} height={2}/>
+                            </div>
+
+                            <div className="chart">
+                                <Bar data={data1} 	width={4} height={2}/>
+                            </div>
+                        </div>
             </div>
         );
     }

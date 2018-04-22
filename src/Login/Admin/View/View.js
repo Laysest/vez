@@ -295,7 +295,7 @@ export default class View extends Component{
         }
         const customStyles1 = {
             content: {
-                height: '6cm',
+                height: '5.25cm',
                 width: '8cm'
             }
         }

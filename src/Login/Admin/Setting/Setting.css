@@ -15,7 +15,7 @@
         flex-direction: column;
         height: 5.25cm;
         width: 8cm;
-        font-size: 150%;
+        font-size: 150%;;
     }
         .modal_header{
             display: flex;
