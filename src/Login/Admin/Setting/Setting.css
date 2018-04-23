@@ -147,13 +147,40 @@
             justify-content: flex-start;
         }
 
+        .textboxsettingtop{
+            display: flex;
+            height: 0.8cm;
+            width: 5cm;
+            flex-direction: row;
+        }
         .textboxsettingId{
             height: 0.5cm;
+            width: 4.31cm;
             text-align: center;
             margin-top: 0.2cm;
+            margin-left: 0.3cm;
             font-weight: bold;
             border-bottom-style: dashed;
         }
+        .textboxsettingdelete{
+            height: 0.8cm;
+            width: 1cm;
+            background-image: url("./buttonDelete.png");
+            background-size: 1cm 0.8cm;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .textboxsettingdelete_hidden{
+            height: 0.8cm;
+            width: 1cm;
+            background-image: url("./buttonDelete.png");
+            background-size: 1cm 0.8cm;
+            background-repeat: no-repeat;
+            background-position: center;
+            display: none;
+        }
+
     .settingbot{
         display: flex;
         flex-grow: 0.1;

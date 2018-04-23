@@ -144,6 +144,17 @@ app.post('/changeData', function(req, res){
   })
 })
 
+app.post('/deleteBelt', function(req, res){
+  var id = req.body.id;
+
+  conn.query(`update simonedb set line = 100 where id = ${id}`, function(err, results){
+    if (err){console.log('update db deleteBelt err'); throw err;}
+    else{
+      res.send('success');
+    }
+  })
+})
+
 app.post('/addBelt', function(req, res){
   var id = req.body.id;
   var line = req.body.line;

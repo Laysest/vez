@@ -4,11 +4,18 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import URL from '../../Host';
 
+
+
 function check(tf){
     if (!tf)
         return "boxsetting";
-    else    
-        return "boxsetting1";
+    return "boxsetting1";
+}
+
+function checkdelete(tf){
+    if (!tf)
+        return "textboxsettingdelete_hidden";
+    return "textboxsettingdelete";
 }
 
 function ListBox(props){
@@ -25,7 +32,26 @@ function ListBox(props){
                             th.setState({line: th.state.line, data: th.state.data, id: th.state.id, delay_time: th.state.delay_time, move_time: th.state.move_time, modalIsOpen: th.state.modalIsOpen, modal: th.state.modal});
                     }}> 
                     <div className="textboxsetting">
-                        <div className="textboxsettingId"> Id : {a.id} </div>
+                        <div className="textboxsettingtop">
+                            <div className="textboxsettingId"> Id : {a.id} </div>
+                            <button className={checkdelete(a.tf)} onClick={()=>{
+                                axios.post(URL + ':3002/deleteBelt', {
+                                    id: a.id
+                                    }).then(function(res){
+                                        if (res.data == 'success'){
+                                            th.getData();
+                                            alert('Removed Belt ' + a.id);
+                                        }
+                                        else{
+                                            alert('Remove Belt ' + a.id + ' failed');
+                                        }
+                                    }).catch(function(err){
+                                        console.log('err get mysql');
+                                        console.log(err);
+                                    })
+                                }}> 
+                            </button>
+                        </div>
                         <div className="textboxsettingdelay">    Time Delay (s): {a.delay_time} </div>  
                         <div className="textboxsettingmove">    Time Move (s): {a.move_time} </div>
                     </div>
