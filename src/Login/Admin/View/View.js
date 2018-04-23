@@ -208,7 +208,7 @@ export default class View extends Component{
         if (th.state.id == ""){
             alert('Error'); 
         }
-        else if (th.state.move_time < 3 && th.state.move_time > 10){
+        else if (th.state.move_time < 3 || th.state.move_time > 10){
             alert('Move time must more than 3s and less than 10s.')
         }
         else{
@@ -289,7 +289,7 @@ export default class View extends Component{
         var th = this;
         const customStyles = {
             content: {
-                height: '8cm',
+                height: '6cm',
                 width: '15cm'
             }
         }

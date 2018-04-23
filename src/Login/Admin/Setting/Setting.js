@@ -53,7 +53,7 @@ class Setting extends Component{
         this.state = {line: props.line, data: [], modalIsOpen: false};
         this.changeData = this.changeData.bind(this);
         this.start = this.start.bind(this);
-        this.startAll = this.startAll.bind(this);
+        this.stop = this.stop.bind(this);
         this.handleChange_delay = this.handleChange_delay.bind(this);
         this.handleChange_move = this.handleChange_move.bind(this);
         this.handleChange_id = this.handleChange_id.bind(this);
@@ -105,6 +105,8 @@ class Setting extends Component{
         if (th.state.id == ""){
             alert('Please fill id & time delay'); 
         }
+        else if (parseInt(th.state.move_time) > 10 || parseInt(th.state.delay_time) < 3)
+            alert('Time Move must more than 3 seconds and less than 10 seconds');
         else{
             axios.post(URL + ':3002/changeData', {
                 id: th.state.id,
@@ -120,7 +122,7 @@ class Setting extends Component{
                     th.state.data[i].delay_time = th.state.delay_time;
                     th.state.data[i].move_time = th.state.move_time;
                     th.setState({line: th.state.line, data: th.state.data, id: th.state.id, move_time: th.state.move_time, delay_time: th.state.delay_time, modalIsOpen: th.state.modalIsOpen, modal: th.state.modal});
-                    alert('Change belt ' + th.state.id + ' successfully.');
+                    alert('Submit belt ' + th.state.id + ' successfully.');
                 }
             }).catch(function(error){
                 console.log(error);
@@ -159,33 +161,53 @@ class Setting extends Component{
             }    
             str += ' started';
             if (dem != 0){
-                for (i = 0; i < th.state.data.length; i++){
-                    th.state.data[i].tf = false;
-                    th.setState({line: th.state.line, data: th.state.data, id: th.state.id, move_time: th.state.move_time, delay_time: th.state.delay_time, modalIsOpen: th.state.modalIsOpen, modal: th.state.modal});
-                }
                 alert(str);
             }
             else{
-                alert('Please choose belt or start all belt in line')
+                alert('Please choose belt to start')
             }
         }
     }
 
-    startAll(){
+    stop(){
         var th = this;
-        axios.post(URL + ':3002/startLine', {
-            line: th.state.line
-            }).then(function(response){
-            if (response.data != 'success'){
-                alert('Cannot start line');
+        var i;
+        var c = true;
+        for (i = 0; i < th.state.data.length; i++){
+            if (th.state.data[i].tf == true){
+                axios.post(URL + ':3002/pause', {
+                    id: th.state.data[i].id
+                }).then(function(response){
+                    if (response.data != 'success'){
+                        alert('Cannot stop belt ' + th.state.data[i].id);
+                        c = false;
+                    }
+                }).catch(function(error){
+                    console.log('active is failed from client');
+                })
+            }
+        }
+        if (c){
+            var str = 'Belt ';
+            var dem = 0;
+            for (i = 0; i < th.state.data.length; i++){
+                if (th.state.data[i].tf == true){
+                    str += th.state.data[i].id + ', ';
+                    dem++;
+                }
+            }    
+            str += ' stopped';
+            if (dem != 0){
+                alert(str);
+                for (i = 0; i < th.state.data.length; i++){
+                    th.state.data[i].tf = false;
+                    th.setState({line: this.state.line, data: this.state.data, id: this.state.id, delay_time: this.state.delay_time, move_time: this.state.move_time, modalIsOpen: this.state.modalIsOpen, modal: this.state.modal})
+                }
             }
             else{
-                th.getData();
-                alert('All belt in line ' + th.state.line + ' started');
+                alert('Please choose belt to stop')
             }
-        }).catch(function(error){
-            console.log('active is failed from client');
-        })
+        }
     }
 
     add(){
@@ -320,9 +342,9 @@ class Setting extends Component{
                         </div>
                     </div>
                     <div className="right_box_change_setting">
-                        <button className="button_submit_change1" onClick={this.changeData}> Change </button>
+                        <button className="button_submit_change1" onClick={this.changeData}> Submit </button>
                         <button className="button_start_change" onClick={this.start}> Start</button>
-                        <button className="button_start_all" onClick={this.startAll}> Pause</button>
+                        <button className="button_start_all" onClick={this.stop}> stop</button>
                     </div>
                 </div>
                 <div className="settingbot"> </div>

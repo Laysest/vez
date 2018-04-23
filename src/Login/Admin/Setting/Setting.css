@@ -5,7 +5,7 @@
     width: 100%;
     height: 95%;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
 }
 
@@ -66,14 +66,14 @@
 
     .settingLine{
         display: flex;
-        margin-left: 3cm;
+        margin-left: 1cm;
         flex-grow: 0;
-        height: 1.25cm;
-        width: 100%;
+        height: 1cm;
+        width: 80%;
         flex-direction: row;
-        font-size: 250%;
+        font-size: 150%;
         font-weight: bold;
-        justify-content: space-between;
+        align-items: center;
     }
     .settingtop{
         display: flex;
@@ -82,7 +82,8 @@
         width: 100%;
         align-items: flex-start;
         flex-wrap: wrap;
-        overflow: scroll;
+        overflow-y: scroll;
+        overflow-x: hidden;
         background-color: aliceblue;
     }
 
@@ -90,9 +91,9 @@
             height: 2.5cm;
             margin-left: 0.5cm;
             margin-right: 0.5cm;
-            margin-top: 0.2cm;
+            margin-top: 0.8cm;
             border-radius: 10px; 
-            width: 5cm;
+            width: 5.31cm;
             text-align: left;
         }
 
@@ -100,9 +101,9 @@
             height: 2.3cm;
             margin-left: 0.55cm;
             margin-right: 0.5cm;
-            margin-top: 0.2cm;
+            margin-top: 0.8cm;
             border-radius: 10px; 
-            width: 4.8cm;
+            width: 5.15cm;
             display: flex;
             flex-direction: column;
             background-image: url("./buttonAdd.png");
@@ -126,9 +127,9 @@
             height: 2.5cm;
             margin-left: 0.5cm;
             margin-right: 0.5cm;
-            margin-top: 0.2cm;
+            margin-top: 0.8cm;
             border-radius: 10px; 
-            width: 5cm;
+            width: 5.31cm;
             text-align: left;
             background-color: greenyellow;
         }
@@ -159,10 +160,12 @@
     }
 
     .box_change{
+        margin-top: 0.5cm;
         height: 4cm;
-        width: 80%;
+        width: 100%;
         display: flex;
         flex-direction: row;
+        justify-content: center;
     }
         .left_box_change{
             flex-grow: 0;
